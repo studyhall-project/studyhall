@@ -39,6 +39,10 @@ The use of Honeycomb will also be new for me. I am hopeful it will work out, but
 [Grafana]: https://grafana.com/
 [Prometheus]: https://prometheus.io/docs/introduction/overview/
 
+For databases I will use [PostgreSQL]. It is rock solid.
+
+[PostgreSQL]: https://www.postgresql.org/
+
 ## Decision Made: Frontend
 
 For the frontend, I'll be using [Svelte] and [SvelteKit]. These are very new technologies for me, and I expect extra learning time.
