@@ -6,7 +6,7 @@ Published on: January 1, 2023
 
 ## Problem Context
 
-Describe the issue that we're seeing what is motivating this decision or change?
+Describe the issue that we're seeing what is motivating this decision or change.
 
 ## Decision Made
 
