@@ -9,7 +9,6 @@ titles = [
   "HTML: Hilariously Tagging Markup Language",
   "Node.js Nonsense: Making Servers Silly",
   "React Revolution: Building Web Apps with a Twist",
-  "Sass-tastic Styles: Where Sass Meets Silliness",
   "The Git Gurus: Committing to Comedy",
   "Web Wonders with Wix: Creating Sites and Laughs",
   "API Adventures: A Quest for Web Development Fun",
