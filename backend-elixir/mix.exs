@@ -32,6 +32,7 @@ defmodule StudyHall.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:ash_graphql, "~> 0.26.0"},
       {:ash_phoenix, "~> 1.2"},
       {:ash_postgres, "~> 1.3"},
       {:ash, "~> 2.14"},

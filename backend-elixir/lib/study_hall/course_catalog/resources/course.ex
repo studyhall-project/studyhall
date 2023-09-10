@@ -1,6 +1,9 @@
 defmodule StudyHall.CourseCatalog.Course do
   use Ash.Resource,
-    data_layer: AshPostgres.DataLayer
+    data_layer: AshPostgres.DataLayer,
+    extensions: [
+      AshGraphql.Resource
+    ]
 
   postgres do
     table "courses"
@@ -35,5 +38,20 @@ defmodule StudyHall.CourseCatalog.Course do
 
     create_timestamp :inserted_at
     update_timestamp :updated_at
+  end
+  
+  graphql do
+    type :course
+
+    queries do
+      get :get_course, :read 
+      list :list_courses, :read 
+    end
+
+    mutations do
+      create :create_course, :create
+      update :update_course, :update
+      destroy :destroy_course, :destroy
+    end
   end
 end
