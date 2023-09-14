@@ -42,6 +42,7 @@ defmodule StudyHall.MixProject do
       {:floki, ">= 0.30.0", only: :test},
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
+      {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
       {:phoenix_ecto, "~> 4.4"},
       {:phoenix_html, "~> 3.3"},
       {:phoenix_live_dashboard, "~> 0.8.0"},
