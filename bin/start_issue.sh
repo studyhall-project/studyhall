@@ -51,7 +51,7 @@ echo $(git add $script_path/../$note_filename)
 echo $(git commit -m "adding notes file")
 
 echo "Pushing branch"
-echo $(git push origin $branch_name)
+echo $(git push -u origin $branch_name)
 
 echo "Creating PR"
 # By using the term "Fixes #N" GitHub will auto link the issue to the PR.
