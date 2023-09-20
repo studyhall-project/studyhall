@@ -16,6 +16,9 @@ jobs:
   build:
     name: Run Dialyzer
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend-elixir
     env:
       MIX_ENV: dev
     strategy:
@@ -33,6 +36,7 @@ jobs:
         with:
           elixir-version: ${{ matrix.elixir }}
           otp-version: ${{ matrix.otp }}
+          working-directory: ./backend-elixir
           build-app: false
 
       # Don't cache PLTs based on mix.lock hash, as Dialyzer can incrementally update even old ones
