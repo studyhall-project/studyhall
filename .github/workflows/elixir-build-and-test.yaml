@@ -49,7 +49,7 @@ jobs:
         with:
           elixir-version: ${{ matrix.elixir }}
           otp-version: ${{ matrix.otp }}
-          working-directory: ./backend-elixir
+          working-directory: backend-elixir
           build-flags: --all-warnings --warnings-as-errors
 
       - name: Run Migrations

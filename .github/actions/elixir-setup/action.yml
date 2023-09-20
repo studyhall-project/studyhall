@@ -20,7 +20,7 @@ inputs:
     required: true
     type: string
     description: the working directory of the elixir project
-    default: "./"
+    default: "."
   build-deps:
     required: false
     type: boolean
@@ -71,7 +71,7 @@ runs:
     - name: Get deps cache
       uses: actions/cache@v3
       with:
-        path: deps/
+        path: ${{ inputs.working-directory }}/deps/
         key: deps-${{ inputs.cache-key }}-${{ runner.os }}-${{ hashFiles('**/mix.lock') }}
         restore-keys: |
           deps-${{ inputs.cache-key }}-${{ runner.os }}-
@@ -80,7 +80,7 @@ runs:
       uses: actions/cache@v3
       id: build-cache
       with:
-        path: _build/${{env.MIX_ENV}}/
+        path: ${{ inputs.working-directory }}/_build/${{env.MIX_ENV}}/
         key: build-${{ inputs.cache-key }}-${{ runner.os }}-${{ inputs.otp-version }}-${{ inputs.elixir-version }}-${{ env.MIX_ENV }}-${{ hashFiles('**/mix.lock') }}
         restore-keys: |
           build-${{ inputs.cache-key }}-${{ runner.os }}-${{ inputs.otp-version }}-${{ inputs.elixir-version }}-${{ env.MIX_ENV }}-

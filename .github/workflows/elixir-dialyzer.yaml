@@ -36,7 +36,7 @@ jobs:
         with:
           elixir-version: ${{ matrix.elixir }}
           otp-version: ${{ matrix.otp }}
-          working-directory: ./backend-elixir
+          working-directory: backend-elixir
           build-app: false
 
       # Don't cache PLTs based on mix.lock hash, as Dialyzer can incrementally update even old ones
