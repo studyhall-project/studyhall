@@ -16,6 +16,11 @@ inputs:
   # codebase "just work," though there may be speed gains to be had
   # by tweaking these flags.
   #################################################################
+  working-directory:
+    required: true
+    type: string
+    description: the working directory of the elixir project
+    default: "./"
   build-deps:
     required: false
     type: boolean
@@ -97,22 +102,29 @@ runs:
     - name: Clean to rule out incremental build as a source of flakiness
       if: github.run_attempt != '1'
       run: |
+        cd ${{ inputs.working-directory }}
         mix deps.clean --all
         mix clean
       shell: sh
 
     - name: Install Rebar
-      run: mix local.rebar --force
+      run: |
+        cd ${{ inputs.working-directory }}
+        mix local.rebar --force
       shell: sh
       if: inputs.install-rebar == 'true'
 
     - name: Install Hex
-      run: mix local.hex --force
+      run: |
+        cd ${{ inputs.working-directory }}
+        mix local.hex --force
       shell: sh
       if: inputs.install-hex == 'true'
 
     - name: Install Dependencies
-      run: mix deps.get
+      run: |
+        cd ${{ inputs.working-directory }}
+        mix deps.get
       shell: sh
 
     # Normally we'd use `mix deps.compile` here, however that incurs a large
@@ -122,11 +134,15 @@ runs:
     # According to Jose Valim at the above link `mix loadpaths` will check and
     # compile missing dependencies
     - name: Compile Dependencies
-      run: mix loadpaths
+      run: |
+        cd ${{ inputs.working-directory }}
+        mix loadpaths
       shell: sh
       if: inputs.build-deps == 'true'
 
     - name: Compile Application
-      run: mix compile ${{ inputs.build-flags }}
+      run: |
+        cd ${{ inputs.working-directory }}
+        mix compile ${{ inputs.build-flags }}
       shell: sh
       if: inputs.build-app == 'true'

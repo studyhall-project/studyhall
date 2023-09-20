@@ -17,6 +17,9 @@ jobs:
   build-and-test:
     name: Compile with No Warnings, Migrate, and Run Tests
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend-elixir
     env:
       MIX_ENV: test
     strategy:
@@ -46,6 +49,7 @@ jobs:
         with:
           elixir-version: ${{ matrix.elixir }}
           otp-version: ${{ matrix.otp }}
+          working-directory: ./backend-elixir
           build-flags: --all-warnings --warnings-as-errors
 
       - name: Run Migrations
