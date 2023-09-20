@@ -1,4 +1,6 @@
 defmodule StudyHallWeb.Schema do
+  @moduledoc false
+
   use Absinthe.Schema
 
   @apis [StudyHall.CourseCatalog]

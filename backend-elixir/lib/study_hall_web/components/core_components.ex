@@ -296,6 +296,7 @@ defmodule StudyHallWeb.CoreComponents do
   end
 
   def input(%{type: "checkbox", value: value} = assigns) do
+    # credo:disable-for-lines:2 Credo.Check.Design.AliasUsage
     assigns =
       assign_new(assigns, :checked, fn -> Phoenix.HTML.Form.normalize_value("checkbox", value) end)
 
