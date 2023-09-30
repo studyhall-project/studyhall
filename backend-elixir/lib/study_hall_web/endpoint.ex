@@ -11,8 +11,9 @@ defmodule StudyHallWeb.Endpoint do
     same_site: "Lax"
   ]
 
-  # TODO: Make this more restrictive.
-  # http://localhost:5173
+  # FIXME: Make this more restrictive.
+  # https://github.com/studyhall-project/studyhall/issues/61
+  # The current frontend is at: localhost:5173
   plug Corsica,
     origins: "*",
     allow_headers: ["content-type", "accept"]
