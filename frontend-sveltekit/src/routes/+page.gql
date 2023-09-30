@@ -1,0 +1,6 @@
+query ListCourseQuery {
+  listCourses {
+    id
+    title
+  }
+}
