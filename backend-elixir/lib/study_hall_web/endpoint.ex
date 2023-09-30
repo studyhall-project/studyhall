@@ -11,6 +11,12 @@ defmodule StudyHallWeb.Endpoint do
     same_site: "Lax"
   ]
 
+  # TODO: Make this more restrictive.
+  # http://localhost:5173
+  plug Corsica,
+    origins: "*",
+    allow_headers: ["content-type", "accept"]
+
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
