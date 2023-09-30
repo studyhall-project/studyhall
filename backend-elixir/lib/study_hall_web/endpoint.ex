@@ -11,6 +11,13 @@ defmodule StudyHallWeb.Endpoint do
     same_site: "Lax"
   ]
 
+  # FIXME: Make this more restrictive.
+  # https://github.com/studyhall-project/studyhall/issues/61
+  # The current frontend is at: localhost:5173
+  plug Corsica,
+    origins: "*",
+    allow_headers: ["content-type", "accept"]
+
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.

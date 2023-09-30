@@ -22,6 +22,9 @@ defmodule StudyHall.Application do
       # {StudyHall.Worker, arg}
     ]
 
+    # https://hexdocs.pm/corsica/Corsica.Telemetry.html#attach_default_handler/1
+    Corsica.Telemetry.attach_default_handler(log_levels: [rejected: :warning])
+
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: StudyHall.Supervisor]
