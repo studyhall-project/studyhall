@@ -24,7 +24,7 @@ https://studyhall-sveltekit.onrender.com
 
 And the GraphQL backend at:
 
-https://studyhall-sveltekit.onrender.com/playground
+https://studyhall-elixir.onrender.com/playground
 
 ## Monorepo
 
