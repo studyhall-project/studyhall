@@ -44,6 +44,7 @@ defmodule StudyHall.MixProject do
       {:finch, "~> 0.13"},
       {:floki, ">= 0.30.0", only: :test},
       {:gettext, "~> 0.20"},
+      {:hackney, "~> 1.19"},
       {:jason, "~> 1.2"},
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
       {:phoenix_ecto, "~> 4.4"},
