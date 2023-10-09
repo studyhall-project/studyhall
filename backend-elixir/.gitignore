@@ -36,3 +36,6 @@ study_hall-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Hide local environment files.
+.env.*
+!.env.example
