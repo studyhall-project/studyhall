@@ -49,6 +49,8 @@ if config_env() == :prod do
       environment variable SECRET_KEY_BASE is missing.
       You can generate one by calling: mix phx.gen.secret
       """
+  # Use by Ash Authentication
+  config :study_hall, token_signing_secret: secret_key_base
 
   host = System.get_env("RENDER_EXTERNAL_HOSTNAME") || "example.com"
   port = String.to_integer(System.get_env("PORT") || "4000")
