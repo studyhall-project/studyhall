@@ -13,7 +13,7 @@ config :study_hall, StudyHall.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
 
-# Use by Ash Authentication
+# Used by Ash Authentication
 config :study_hall, token_signing_secret: "insecure-test-secret"
 
 # We don't run a server during test. If one is required,
