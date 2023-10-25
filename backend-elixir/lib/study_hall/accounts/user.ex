@@ -1,7 +1,10 @@
 defmodule StudyHall.Accounts.User do
   use Ash.Resource,
     data_layer: AshPostgres.DataLayer,
-    extensions: [AshAuthentication]
+    extensions: [
+      AshAuthentication,
+      AshGraphql.Resource
+    ]
 
   postgres do
     table "users"
@@ -16,6 +19,33 @@ defmodule StudyHall.Accounts.User do
 
   actions do
     defaults [:read]
+
+    read :by_id do
+      argument :id, :uuid, allow_nil?: false
+      get? true
+      filter expr(id == ^arg(:id))
+    end
+  end
+
+  code_interface do
+    define_for StudyHall.Accounts
+
+    define :read_all, action: :read
+    define :get_by_id, args: [:id], action: :by_id
+    define :register_with_password, args: [:email, :password, :password_confirmation]
+  end
+
+  graphql do
+    type :user
+
+    queries do
+      get :get_user, :read
+      list :list_users, :read
+    end
+
+    mutations do
+      create :register_with_password, :register_with_password
+    end
   end
 
   authentication do
