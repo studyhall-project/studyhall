@@ -31,16 +31,6 @@ defmodule StudyHall.Accounts.UserTest do
                  password,
                  password_confirmation
                )
-
-      # normally I'd do something like:
-      # assert "should be at least 8 character(s)" in errors_on(changeset).password
-
-      # Q: What function should I lean on to extract error strings per field from `Ash.Error`?
-
-      # A: Going to try calling this action from the GraphQL and see how it styles the message. May end up only testing that.
-
-      # dbg(ash_error)
-      # assert false
     end
   end
 end
