@@ -1,4 +1,9 @@
 defmodule StudyHall.Accounts do
+  @moduledoc """
+  A context that allows people to manage registration and authentication related
+  queries and mutations involving `Users`.
+  """
+
   use Ash.Api,
     extensions: [
       AshGraphql.Api

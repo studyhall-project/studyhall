@@ -1,6 +1,7 @@
 # I don't think this is what I'll actually be using but it came from the tutorial for non Phoenix apps.
-
 defmodule StudyHallWeb.AuthPlug do
+  @moduledoc false
+
   use AshAuthentication.Plug, otp_app: :my_app
 
   def handle_success(conn, _activity, user, token) do

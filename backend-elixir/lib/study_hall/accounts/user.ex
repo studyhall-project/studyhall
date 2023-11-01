@@ -1,4 +1,8 @@
 defmodule StudyHall.Accounts.User do
+  @moduledoc """
+  A User entity represents an individual who has registered to use the application.
+  """
+
   use Ash.Resource,
     data_layer: AshPostgres.DataLayer,
     extensions: [

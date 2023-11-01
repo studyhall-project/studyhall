@@ -1,4 +1,7 @@
+# I created this during the tutorial but I don't think I'll be using it.
 defmodule StudyHall.Accounts.Token do
+  @moduledoc false
+
   use Ash.Resource,
     data_layer: AshPostgres.DataLayer,
     extensions: [AshAuthentication.TokenResource]
