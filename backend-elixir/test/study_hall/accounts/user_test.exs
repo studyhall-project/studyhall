@@ -1,9 +1,7 @@
 defmodule StudyHall.Accounts.UserTest do
   use StudyHall.DataCase
-
-  alias StudyHall.Accounts.User
-
   import Ash.CiString, only: [sigil_i: 2]
+  alias StudyHall.Accounts.User
 
   describe "register_with_password/3" do
     test "success: creates a user with valid arguments" do
