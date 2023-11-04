@@ -9,7 +9,7 @@ defmodule StudyHallWeb.Api.AuthenticationTest do
 
   alias StudyHall.Accounts.User
 
-  test "success: returns a token with valid password", %{conn: conn} do
+  test "success: returns a token when sending in a valid password", %{conn: conn} do
     password = "passwords-are-fun"
     %User{id: id, email: email} = create_user!(%{password: password})
     email = Ash.CiString.to_comparable_string(email)
@@ -27,7 +27,7 @@ defmodule StudyHallWeb.Api.AuthenticationTest do
            } = json_response(conn, 200)
   end
 
-  test "failure: does not work with invalid password", %{conn: conn} do
+  test "failure: does not work with an invalid password", %{conn: conn} do
     %User{email: email} = create_user!(%{password: "passwords-are-fun"})
     email = Ash.CiString.to_comparable_string(email)
     conn = post_sign_in_with_password_mutation(conn, %{email: email, password: "wrong-password"})
@@ -52,7 +52,8 @@ defmodule StudyHallWeb.Api.AuthenticationTest do
         password: "password"
       })
 
-    # Note: The error message here does not leak that the email in question is or is not in the system.
+    # Note: The error message here does not leak that the email in question is
+    # or is not in the system.
     assert %{
              "data" => %{
                "signInWithPassword" => nil
