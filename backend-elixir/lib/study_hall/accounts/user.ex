@@ -47,6 +47,7 @@ defmodule StudyHall.Accounts.User do
     define :read_all, action: :read
     define :get_by_id, args: [:id], action: :by_id
     define :register_with_password, args: [:email, :password, :password_confirmation]
+    define :sign_in_with_password, args: [:email, :password]
   end
 
   graphql do
@@ -55,6 +56,11 @@ defmodule StudyHall.Accounts.User do
     queries do
       get :get_user, :read
       list :list_users, :read
+
+      read_one :sign_in_with_password, :sign_in_with_password do
+        as_mutation? true
+        type_name :user_with_metadata
+      end
     end
 
     mutations do
