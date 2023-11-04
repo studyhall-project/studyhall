@@ -31,9 +31,6 @@ defmodule StudyHallWeb.Api.RegistrationTest do
     # Assert the user is in now in the database.
     expected_email = ~i"amy@example.com"
     assert %User{email: ^expected_email} = User.get_by_id!(id)
-
-    # TODO: Assert they got a welcome email.
-    # Maybe there is a better way to test side-effects like this?
   end
 
   test "failure: requires long passwords", %{conn: conn} do
