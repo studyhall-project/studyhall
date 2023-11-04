@@ -10,6 +10,11 @@ defmodule StudyHall.Accounts.User do
       AshGraphql.Resource
     ]
 
+  @type t :: %__MODULE__{
+          id: Ecto.UUID.t(),
+          email: Ash.CiString.t()
+        }
+
   postgres do
     table "users"
     repo StudyHall.Repo
