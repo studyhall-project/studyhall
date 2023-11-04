@@ -1,4 +1,8 @@
 defmodule StudyHallWeb.Api.RegistrationTest do
+  @moduledoc """
+  Asserts expectations around account creation via the GraphQL API.
+  """
+
   use StudyHallWeb.ConnCase
 
   import Ash.CiString, only: [sigil_i: 2]
