@@ -29,6 +29,9 @@ defmodule StudyHall.Accounts.User do
       sensitive? true
       private? true
     end
+
+    create_timestamp :inserted_at
+    update_timestamp :updated_at
   end
 
   actions do

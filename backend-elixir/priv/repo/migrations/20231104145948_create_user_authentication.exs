@@ -12,6 +12,8 @@ defmodule StudyHall.Repo.Migrations.CreateUserAuthentication do
       add :id, :uuid, null: false, default: fragment("uuid_generate_v4()"), primary_key: true
       add :email, :citext, null: false
       add :hashed_password, :text, null: false
+      add :inserted_at, :utc_datetime_usec, null: false, default: fragment("now()")
+      add :updated_at, :utc_datetime_usec, null: false, default: fragment("now()")
     end
 
     create unique_index(:users, [:email], name: "users_unique_email_index")

@@ -29,10 +29,30 @@
       "allow_nil?": false,
       "primary_key?": false,
       "generated?": false
+    },
+    {
+      "default": "fragment(\"now()\")",
+      "size": null,
+      "type": "utc_datetime_usec",
+      "source": "inserted_at",
+      "references": null,
+      "allow_nil?": false,
+      "primary_key?": false,
+      "generated?": false
+    },
+    {
+      "default": "fragment(\"now()\")",
+      "size": null,
+      "type": "utc_datetime_usec",
+      "source": "updated_at",
+      "references": null,
+      "allow_nil?": false,
+      "primary_key?": false,
+      "generated?": false
     }
   ],
   "table": "users",
-  "hash": "17BBB777FA7875A53B23A5319D9F9D43607B830D6E7614FD61241B16C8892512",
+  "hash": "F52D59C79AB23BEC900482B96A3BFB8B79566AB96E43EF3E08884F3851E665E0",
   "repo": "Elixir.StudyHall.Repo",
   "identities": [
     {
