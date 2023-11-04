@@ -10,7 +10,7 @@ defmodule StudyHallWeb.Api.RegistrationTest do
   alias StudyHall.Accounts.User
 
   test "success: can register with valid params", %{conn: conn} do
-    conn = prepare_register_user_conn(conn)
+    conn = post_register_with_password_mutation(conn)
 
     # Assert successful Graph API response.
     assert %{
@@ -31,11 +31,14 @@ defmodule StudyHallWeb.Api.RegistrationTest do
     # Assert the user is in now in the database.
     expected_email = ~i"amy@example.com"
     assert %User{email: ^expected_email} = User.get_by_id!(id)
+
+    # TODO: Assert they got a welcome email.
+    # Maybe there is a better way to test side-effects like this?
   end
 
   test "failure: requires long passwords", %{conn: conn} do
     conn =
-      prepare_register_user_conn(conn, %{
+      post_register_with_password_mutation(conn, %{
         password: "short",
         password_confirmation: "short"
       })
@@ -62,7 +65,7 @@ defmodule StudyHallWeb.Api.RegistrationTest do
 
   test "failure: requires confirmation to match password", %{conn: conn} do
     conn =
-      prepare_register_user_conn(conn, %{
+      post_register_with_password_mutation(conn, %{
         password: "password",
         password_confirmation: "password-nomatch"
       })
@@ -85,7 +88,7 @@ defmodule StudyHallWeb.Api.RegistrationTest do
 
   test "failure: can not register with an email already in the system", %{conn: conn} do
     %{user: user} = register_user(conn)
-    conn = prepare_register_user_conn(conn, %{email: Ash.CiString.value(user.email)})
+    conn = post_register_with_password_mutation(conn, %{email: Ash.CiString.value(user.email)})
 
     assert %{
              "data" => %{
@@ -101,7 +104,7 @@ defmodule StudyHallWeb.Api.RegistrationTest do
            } = json_response(conn, 200)
   end
 
-  defp prepare_register_user_conn(conn, attrs \\ %{}) do
+  defp post_register_with_password_mutation(conn, attrs \\ %{}) do
     attrs = default_user_attrs(attrs)
 
     query = """
@@ -140,7 +143,7 @@ defmodule StudyHallWeb.Api.RegistrationTest do
     attrs = default_user_attrs(attrs)
 
     conn =
-      prepare_register_user_conn(conn, %{
+      post_register_with_password_mutation(conn, %{
         email: attrs.email,
         password: attrs.password,
         password_confirmation: attrs.password_confirmation
