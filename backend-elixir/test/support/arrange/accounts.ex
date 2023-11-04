@@ -12,7 +12,8 @@ defmodule StudyHall.Arrange.Accounts do
   @type incoming_user_attributes ::
           %{
             optional(:email) => String.t(),
-            optional(:password) => String.t()
+            optional(:password) => String.t(),
+            optional(:password_confirmation) => String.t()
           }
           | nil
 
@@ -31,9 +32,17 @@ defmodule StudyHall.Arrange.Accounts do
   end
 
   @spec required_user_attributes(map()) :: incoming_user_attributes
-  def required_user_attributes(incoming_user_attributes) do
-    incoming_user_attributes
-    |> Map.put_new(:email, "user#{System.unique_integer()}@example.com")
-    |> Map.put_new(:password, "some-long-valid-password")
+  def required_user_attributes(incoming_user_attributes \\ %{}) do
+    attrs =
+      incoming_user_attributes
+      |> Map.put_new(:email, "user#{System.unique_integer()}@example.com")
+      |> Map.put_new(:password, "some-long-valid-password")
+
+    # If the password confirmation is not provided, default it to the password value.
+    if Map.has_key?(attrs, :password_confirmation) do
+      attrs
+    else
+      Map.put_new(attrs, :password_confirmation, attrs[:password])
+    end
   end
 end
