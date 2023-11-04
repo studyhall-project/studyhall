@@ -6,11 +6,12 @@ defmodule StudyHallWeb.Api.RegistrationTest do
   use StudyHallWeb.ConnCase
 
   import Ash.CiString, only: [sigil_i: 2]
+  import StudyHall.Arrange.Accounts
 
   alias StudyHall.Accounts.User
 
   test "success: can register with valid params", %{conn: conn} do
-    conn = post_register_with_password_mutation(conn)
+    conn = post_register_with_password_mutation(conn, %{email: "amy@example.com"})
 
     # Assert successful Graph API response.
     assert %{
@@ -84,7 +85,7 @@ defmodule StudyHallWeb.Api.RegistrationTest do
   end
 
   test "failure: can not register with an email already in the system", %{conn: conn} do
-    %{user: user} = register_user(conn)
+    user = create_user!()
     conn = post_register_with_password_mutation(conn, %{email: Ash.CiString.value(user.email)})
 
     assert %{
@@ -101,8 +102,8 @@ defmodule StudyHallWeb.Api.RegistrationTest do
            } = json_response(conn, 200)
   end
 
-  defp post_register_with_password_mutation(conn, attrs \\ %{}) do
-    attrs = default_user_attrs(attrs)
+  defp post_register_with_password_mutation(conn, attrs) do
+    attrs = required_user_attributes(attrs)
 
     query = """
     mutation registerWithPassword($input: RegisterWithPasswordInput) {
@@ -134,39 +135,5 @@ defmodule StudyHallWeb.Api.RegistrationTest do
         }
       }
     })
-  end
-
-  defp register_user(conn, attrs \\ %{}) do
-    attrs = default_user_attrs(attrs)
-
-    conn =
-      post_register_with_password_mutation(conn, %{
-        email: attrs.email,
-        password: attrs.password,
-        password_confirmation: attrs.password_confirmation
-      })
-
-    response = json_response(conn, 200)
-
-    %{
-      "data" => %{
-        "registerWithPassword" => %{
-          "result" => %{
-            "id" => id
-          }
-        }
-      }
-    } = response
-
-    user = User.get_by_id!(id)
-
-    %{conn: conn, user: user}
-  end
-
-  defp default_user_attrs(incoming_values) do
-    incoming_values
-    |> Map.put_new(:email, "amy@example.com")
-    |> Map.put_new(:password, "password")
-    |> Map.put_new(:password_confirmation, "password")
   end
 end
