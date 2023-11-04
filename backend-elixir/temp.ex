@@ -1,6 +1,10 @@
 # TODO
 # Add plug: https://ash-hq.org/docs/guides/ash_graphql/latest/authorize-with-graphql
 
+StudyHall.Accounts.User.sign_in_with_password("mike@mikezornek.com", "abc")
+
+####
+
 Helpdesk.Support.Ticket
 |> Ash.Changeset.for_create(:create)
 |> Helpdesk.Support.create!()
