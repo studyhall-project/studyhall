@@ -37,3 +37,10 @@ titles = [
 for title <- titles do
   %Course{} = Course.create!(%{title: title})
 end
+
+# Make a sample User for me.
+StudyHall.Accounts.User.register_with_password!(
+  "mike@mikezornek.com",
+  "password",
+  "password"
+)
