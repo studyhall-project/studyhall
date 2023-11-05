@@ -9,8 +9,8 @@ defmodule StudyHallWeb.Api.ResetPasswordTest do
   import StudyHall.Arrange.Accounts
   import Swoosh.TestAssertions
 
-  alias StudyHall.Accounts.User
   alias StudyHall.Accounts.Emails.ResetPassword
+  alias StudyHall.Accounts.User
 
   test "success: given a known email, sends reset password email", %{conn: conn} do
     %User{email: email} = create_user!()

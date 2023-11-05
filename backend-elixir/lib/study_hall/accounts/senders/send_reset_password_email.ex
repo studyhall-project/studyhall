@@ -27,7 +27,7 @@ defmodule StudyHall.Accounts.Senders.SendResetPasswordEmail do
     end
   end
 
-  defp frontend_url() do
+  defp frontend_url do
     Application.get_env(:studyhall, :frontend_url, "http://localhost:5173")
   end
 end
