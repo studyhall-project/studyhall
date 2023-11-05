@@ -51,6 +51,7 @@ defmodule StudyHall.Accounts.User do
     define :get_by_id, args: [:id], action: :by_id
     define :register_with_password, args: [:email, :password, :password_confirmation]
     define :sign_in_with_password, args: [:email, :password]
+    define :request_password_reset, args: [:email]
   end
 
   graphql do
@@ -63,6 +64,10 @@ defmodule StudyHall.Accounts.User do
       read_one :sign_in_with_password, :sign_in_with_password do
         as_mutation? true
         type_name :user_with_metadata
+      end
+
+      read_one :request_password_reset, :request_password_reset do
+        as_mutation? true
       end
     end
 
@@ -77,6 +82,11 @@ defmodule StudyHall.Accounts.User do
     strategies do
       password :password do
         identity_field :email
+
+        resettable do
+          request_password_reset_action_name :request_password_reset
+          sender StudyHall.Accounts.Senders.SendResetPasswordEmail
+        end
       end
     end
 
