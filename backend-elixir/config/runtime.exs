@@ -99,6 +99,17 @@ if config_env() == :prod do
   #       force_ssl: [hsts: true]
   #
   # Check `Plug.SSL` for all available options in `force_ssl`.
+
+  # We use the `FRONTEND_URL` environment variable to help inform URL
+  # construction for things like password reset emails.
+  frontend_url =
+    System.get_env("FRONTEND_URL") ||
+      raise """
+      environment variable FRONTEND_URL is missing.
+      For example: https://preview-abc.studyhall.foo
+      """
+
+  config :studyhall, :frontend_url, frontend_url
 end
 
 # Any configuration environment can choose to provide a
