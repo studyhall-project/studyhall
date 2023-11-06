@@ -3,6 +3,11 @@
 
 StudyHall.Accounts.User.sign_in_with_password("mike@mikezornek.com", "abc")
 
+token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ-PiAzLjExIiwiZXhwIjoxNzAwNDI5MDA4LCJpYXQiOjE2OTkyMTk0MDgsImlzcyI6IkFzaEF1dGhlbnRpY2F0aW9uIHYzLjExLjE2IiwianRpIjoiMnVhZGUzNHE0aGRqYjFrYXM0MDAwMWQyIiwibmJmIjoxNjk5MjE5NDA4LCJwdXJwb3NlIjoidXNlciIsInN1YiI6InVzZXI_aWQ9YjU5NTQ2YTgtNDIxOC00MjgyLThhODktYjkzZjUzY2YyYTZhIn0.PcEL-4vb5__i-OakjoJXdxQKU5F_FadM4badKvtebqI"
+
+StudyHall.Accounts.User.password_reset("bogus-token", "password", "password", nil)
+
 ####
 
 Helpdesk.Support.Ticket
@@ -30,7 +35,8 @@ Ash.Resource.Info.actions(StudyHall.Accounts)
 
 StudyHall.Accounts.User.request_password_reset("mike@mikezornek.com")
 
-iex(1)> Ash.Resource.Info.actions(StudyHall.Accounts.User)
+Ash.Resource.Info.actions(StudyHall.Accounts.User)
+
 [
   %Ash.Resource.Actions.Update{
     name: :password_reset_with_password,
@@ -78,8 +84,7 @@ iex(1)> Ash.Resource.Info.actions(StudyHall.Accounts.User)
     ],
     changes: [
       %Ash.Resource.Validation{
-        validation: {AshAuthentication.Strategy.Password.ResetTokenValidation,
-         []},
+        validation: {AshAuthentication.Strategy.Password.ResetTokenValidation, []},
         module: AshAuthentication.Strategy.Password.ResetTokenValidation,
         opts: [],
         only_when_valid?: false,
@@ -90,8 +95,7 @@ iex(1)> Ash.Resource.Info.actions(StudyHall.Accounts.User)
         on: []
       },
       %Ash.Resource.Validation{
-        validation: {AshAuthentication.Strategy.Password.PasswordConfirmationValidation,
-         []},
+        validation: {AshAuthentication.Strategy.Password.PasswordConfirmationValidation, []},
         module: AshAuthentication.Strategy.Password.PasswordConfirmationValidation,
         opts: [],
         only_when_valid?: false,
@@ -155,8 +159,7 @@ iex(1)> Ash.Resource.Info.actions(StudyHall.Accounts.User)
     pagination: false,
     preparations: [
       %Ash.Resource.Preparation{
-        preparation: {AshAuthentication.Strategy.Password.RequestPasswordResetPreparation,
-         []}
+        preparation: {AshAuthentication.Strategy.Password.RequestPasswordResetPreparation, []}
       }
     ],
     primary?: false,
@@ -253,12 +256,12 @@ iex(1)> Ash.Resource.Info.actions(StudyHall.Accounts.User)
     ],
     changes: [
       %Ash.Resource.Validation{
-        validation: {AshAuthentication.Strategy.Password.PasswordConfirmationValidation,
-         []},
+        validation: {AshAuthentication.Strategy.Password.PasswordConfirmationValidation, []},
         module: AshAuthentication.Strategy.Password.PasswordConfirmationValidation,
         opts: [],
         only_when_valid?: false,
-        description: "Confirm that the values of `:password` and `:password_confirmation` are the same if confirmation is enabled.",
+        description:
+          "Confirm that the values of `:password` and `:password_confirmation` are the same if confirmation is enabled.",
         message: nil,
         before_action?: false,
         where: [],
@@ -268,14 +271,16 @@ iex(1)> Ash.Resource.Info.actions(StudyHall.Accounts.User)
         change: {AshAuthentication.Strategy.Password.HashPasswordChange, []},
         on: nil,
         only_when_valid?: false,
-        description: "Generate a cryptographic hash of the user's plain text password and store it in the `:hashed_password` attribute.",
+        description:
+          "Generate a cryptographic hash of the user's plain text password and store it in the `:hashed_password` attribute.",
         where: []
       },
       %Ash.Resource.Change{
         change: {AshAuthentication.GenerateTokenChange, []},
         on: nil,
         only_when_valid?: false,
-        description: "If token generation is enabled, generate a token and store it in the user's metadata.",
+        description:
+          "If token generation is enabled, generate a token and store it in the user's metadata.",
         where: []
       }
     ],
@@ -357,6 +362,3 @@ iex(1)> Ash.Resource.Info.actions(StudyHall.Accounts.User)
     type: :read
   }
 ]
-iex(2)>
-nil
-iex(3)>
