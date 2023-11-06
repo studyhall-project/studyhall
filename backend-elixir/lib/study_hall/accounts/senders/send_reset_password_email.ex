@@ -9,7 +9,7 @@ defmodule StudyHall.Accounts.Senders.SendResetPasswordEmail do
 
   @impl AshAuthentication.Sender
   def send(user, token, _) do
-    reset_url = "#{frontend_url()}/reset-password?token=#{token}"
+    reset_url = "#{frontend_url()}/reset-password?user_id=#{user.id}&token=#{token}"
     support_url = "#{frontend_url()}/support"
     email = ResetPassword.new(user, reset_url, support_url)
 
