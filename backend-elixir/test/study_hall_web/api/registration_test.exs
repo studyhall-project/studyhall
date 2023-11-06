@@ -47,11 +47,11 @@ defmodule StudyHallWeb.Api.RegistrationTest do
                  "errors" => [
                    %{
                      "fields" => ["password_confirmation"],
-                     "shortMessage" => "length must be greater than or equal to 8"
+                     "message" => "length must be greater than or equal to 8"
                    },
                    %{
                      "fields" => ["password"],
-                     "shortMessage" => "length must be greater than or equal to 8"
+                     "message" => "length must be greater than or equal to 8"
                    }
                  ],
                  "metadata" => nil,
@@ -115,6 +115,7 @@ defmodule StudyHallWeb.Api.RegistrationTest do
         errors {
           code
           fields
+          message
           shortMessage
           vars
         }
