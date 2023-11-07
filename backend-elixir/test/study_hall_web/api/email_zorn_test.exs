@@ -11,7 +11,7 @@ defmodule StudyHallWeb.Api.EmailZornTest do
   }
   """
 
-  test "mutation: emailZorn", %{conn: conn} do
+  test "mutation: emailZorn", ~M{conn} do
     conn =
       post(conn, "/gql", %{
         "query" => @email_zorn_mutation,

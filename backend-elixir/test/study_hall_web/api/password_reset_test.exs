@@ -11,10 +11,10 @@ defmodule StudyHallWeb.Api.PasswordResetTest do
   alias StudyHall.Accounts.Emails.ResetPassword
   alias StudyHall.Accounts.User
 
-  test "success: given a known email, sends password reset email", %{conn: conn} do
+  test "success: given a known email, sends password reset email", ~M{conn} do
     %User{email: email} = create_user!()
     email = Ash.CiString.to_comparable_string(email)
-    conn = post_request_password_reset_mutation(conn, %{email: email})
+    conn = post_request_password_reset_mutation(conn, ~M{email})
 
     # The API response is `null` both when the email is known and unknown.
     assert %{"data" => %{"requestPasswordReset" => nil}} = json_response(conn, 200)
@@ -24,7 +24,7 @@ defmodule StudyHallWeb.Api.PasswordResetTest do
     end)
   end
 
-  test "failure: given an unknown email, does not send a password reset email", %{conn: conn} do
+  test "failure: given an unknown email, does not send a password reset email", ~M{conn} do
     conn = post_request_password_reset_mutation(conn, %{email: "missing@example.com"})
 
     # The API response is `null` both when the email is known and unknown.
@@ -34,7 +34,7 @@ defmodule StudyHallWeb.Api.PasswordResetTest do
     refute_email_sent()
   end
 
-  test "success: using a valid token, can assign a new password", %{conn: conn} do
+  test "success: using a valid token, can assign a new password", ~M{conn} do
     %User{id: id, email: email} = create_user!()
     User.request_password_reset(email)
     reset_token = password_reset_token_from_recent_email()
@@ -65,7 +65,7 @@ defmodule StudyHallWeb.Api.PasswordResetTest do
     assert {:ok, _user} = User.sign_in_with_password(email, "new-password")
   end
 
-  test "failure: using a valid token, but invalid password fails", %{conn: conn} do
+  test "failure: using a valid token, but invalid password fails", ~M{conn} do
     %User{id: id, email: email} = create_user!()
     User.request_password_reset(email)
     reset_token = password_reset_token_from_recent_email()
@@ -98,7 +98,7 @@ defmodule StudyHallWeb.Api.PasswordResetTest do
            } = json_response(conn, 200)
   end
 
-  test "failure: when using an invalid token, sees expected error", %{conn: conn} do
+  test "failure: when using an invalid token, sees expected error", ~M{conn} do
     %User{id: id} = create_user!()
 
     conn =
@@ -131,7 +131,7 @@ defmodule StudyHallWeb.Api.PasswordResetTest do
     # documenting) for now.
   end
 
-  defp post_request_password_reset_mutation(conn, %{email: email}) do
+  defp post_request_password_reset_mutation(conn, ~M{email}) do
     query = """
     mutation requestPasswordReset($email: String!) {
       requestPasswordReset(email: $email) {

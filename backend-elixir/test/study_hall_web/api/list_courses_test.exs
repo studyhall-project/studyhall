@@ -12,7 +12,7 @@ defmodule StudyHallWeb.Api.ListCoursesTest do
   }
   """
 
-  test "query: listCourses", %{conn: conn} do
+  test "query: listCourses", ~M{conn} do
     Course.create!(%{title: "Course Apple"})
     Course.create!(%{title: "Course Banana"})
     Course.create!(%{title: "Course Cherry"})
@@ -45,7 +45,7 @@ defmodule StudyHallWeb.Api.ListCoursesTest do
   }
   """
 
-  test "query: getCourse", %{conn: conn} do
+  test "query: getCourse", ~M{conn} do
     %Course{id: course_id} = Course.create!(%{title: "Course Apple"})
 
     conn =

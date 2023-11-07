@@ -28,6 +28,9 @@ defmodule StudyHallWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import StudyHallWeb.ConnCase
+
+      # Short Maps are popular during testing.
+      import ShorterMaps
     end
   end
 

@@ -10,7 +10,7 @@ defmodule StudyHallWeb.Api.RegistrationTest do
 
   alias StudyHall.Accounts.User
 
-  test "success: can register with valid params", %{conn: conn} do
+  test "success: can register with valid params", ~M{conn} do
     conn = post_register_with_password_mutation(conn, %{email: "amy@example.com"})
 
     # Assert successful Graph API response.
@@ -34,7 +34,7 @@ defmodule StudyHallWeb.Api.RegistrationTest do
     assert %User{email: ^expected_email} = User.get_by_id!(id)
   end
 
-  test "failure: requires long passwords", %{conn: conn} do
+  test "failure: requires long passwords", ~M{conn} do
     conn =
       post_register_with_password_mutation(conn, %{
         password: "short",
@@ -61,7 +61,7 @@ defmodule StudyHallWeb.Api.RegistrationTest do
            } = json_response(conn, 200)
   end
 
-  test "failure: requires confirmation to match password", %{conn: conn} do
+  test "failure: requires confirmation to match password", ~M{conn} do
     conn =
       post_register_with_password_mutation(conn, %{
         password: "password",
@@ -84,7 +84,7 @@ defmodule StudyHallWeb.Api.RegistrationTest do
            } = json_response(conn, 200)
   end
 
-  test "failure: can not register with an email already in the system", %{conn: conn} do
+  test "failure: can not register with an email already in the system", ~M{conn} do
     user = create_user!()
     conn = post_register_with_password_mutation(conn, %{email: Ash.CiString.value(user.email)})
 
