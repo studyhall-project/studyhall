@@ -9,7 +9,7 @@ defmodule StudyHallWeb.Api.AuthenticationTest do
 
   alias StudyHall.Accounts.User
 
-  test "success: returns a token when sending in a valid password", %{conn: conn} do
+  test "success: returns a token when sending in a valid password", ~M{conn} do
     password = "passwords-are-fun"
     %User{id: id, email: email} = create_user!(%{password: password})
     email = Ash.CiString.to_comparable_string(email)
@@ -27,7 +27,7 @@ defmodule StudyHallWeb.Api.AuthenticationTest do
            } = json_response(conn, 200)
   end
 
-  test "failure: does not work with an invalid password", %{conn: conn} do
+  test "failure: does not work with an invalid password", ~M{conn} do
     %User{email: email} = create_user!(%{password: "passwords-are-fun"})
     email = Ash.CiString.to_comparable_string(email)
     conn = post_sign_in_with_password_mutation(conn, %{email: email, password: "wrong-password"})
@@ -45,7 +45,7 @@ defmodule StudyHallWeb.Api.AuthenticationTest do
            } = json_response(conn, 200)
   end
 
-  test "failure: does not work with for email not in system", %{conn: conn} do
+  test "failure: does not work with for email not in system", ~M{conn} do
     conn =
       post_sign_in_with_password_mutation(conn, %{
         email: "missing-user@example.com",
@@ -67,7 +67,7 @@ defmodule StudyHallWeb.Api.AuthenticationTest do
            } = json_response(conn, 200)
   end
 
-  defp post_sign_in_with_password_mutation(conn, %{email: email, password: password}) do
+  defp post_sign_in_with_password_mutation(conn, ~M{email, password}) do
     query = """
     mutation signInWithPassword($email: String!, $password: String!) {
       signInWithPassword(email: $email, password: $password) {
