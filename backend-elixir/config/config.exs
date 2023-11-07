@@ -11,11 +11,17 @@ import Config
 # see https://ash-hq.org/docs/guides/ash/latest/get-started#temporary-config for more details
 config :ash, :use_all_identities_in_manage_relationship?, false
 
+# For the needs of ash_graphql we need to explicitly configure this value, even though it is the default.
+config :ash, :utc_datetime_type, :datetime
+
 # This won’t be necessary after the next major release, where this new configuration will be the default.
 config :ash_graphql, :default_managed_relationship_type_name_template, :action_name
 
 config :study_hall,
-  ash_apis: [StudyHall.CourseCatalog]
+  ash_apis: [
+    StudyHall.Accounts,
+    StudyHall.CourseCatalog
+  ]
 
 config :study_hall,
   ecto_repos: [StudyHall.Repo]

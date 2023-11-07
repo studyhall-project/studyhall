@@ -3,7 +3,10 @@ defmodule StudyHallWeb.Schema do
 
   use Absinthe.Schema
 
-  @apis [StudyHall.CourseCatalog]
+  @apis [
+    StudyHall.Accounts,
+    StudyHall.CourseCatalog
+  ]
 
   use AshGraphql, apis: @apis
 

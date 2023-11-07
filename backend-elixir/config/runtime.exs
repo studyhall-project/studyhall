@@ -50,6 +50,9 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
+  # Used by Ash Authentication
+  config :study_hall, token_signing_secret: secret_key_base
+
   host = System.get_env("RENDER_EXTERNAL_HOSTNAME") || "example.com"
   port = String.to_integer(System.get_env("PORT") || "4000")
 
@@ -96,6 +99,17 @@ if config_env() == :prod do
   #       force_ssl: [hsts: true]
   #
   # Check `Plug.SSL` for all available options in `force_ssl`.
+
+  # We use the `FRONTEND_URL` environment variable to help inform URL
+  # construction for things like password reset emails.
+  frontend_url =
+    System.get_env("FRONTEND_URL") ||
+      raise """
+      environment variable FRONTEND_URL is missing.
+      For example: https://preview-abc.studyhall.foo
+      """
+
+  config :studyhall, :frontend_url, frontend_url
 end
 
 # Any configuration environment can choose to provide a

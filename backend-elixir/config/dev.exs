@@ -10,6 +10,9 @@ config :study_hall, StudyHall.Repo,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
+# Use by Ash Authentication
+config :study_hall, token_signing_secret: "insecure-dev-secret"
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #

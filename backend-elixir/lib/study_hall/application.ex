@@ -12,6 +12,8 @@ defmodule StudyHall.Application do
       StudyHallWeb.Telemetry,
       # Start the Ecto repository
       StudyHall.Repo,
+      # Start the AshAuthentication supervisor
+      {AshAuthentication.Supervisor, otp_app: :study_hall},
       # Start the PubSub system
       {Phoenix.PubSub, name: StudyHall.PubSub},
       # Start Finch
