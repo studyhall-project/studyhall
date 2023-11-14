@@ -81,6 +81,8 @@ defmodule StudyHall.Accounts.User do
   authentication do
     api StudyHall.Accounts
 
+    # If you ever want to do introspection at the actions this generates use,
+    # `Ash.Resource.Info.actions(StudyHall.Accounts.User)` inside an iex session.
     strategies do
       password :password do
         identity_field :email
