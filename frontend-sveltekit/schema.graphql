@@ -22,6 +22,7 @@ input CourseFilterId {
 input CourseFilterInput {
   and: [CourseFilterInput!]
   id: CourseFilterId
+  not: [CourseFilterInput!]
   or: [CourseFilterInput!]
   title: CourseFilterTitle
 }
@@ -69,6 +70,10 @@ type DestroyCourseResult {
   result: Course
 }
 
+type EmailResult {
+  systemMessage: String
+}
+
 """
 The `Json` scalar type represents arbitrary json string data, represented as UTF-8
 character sequences. The Json type is most often used to represent a free-form
@@ -94,9 +99,86 @@ type MutationError {
   vars: Json
 }
 
+input PasswordResetInput {
+  password: String!
+  passwordConfirmation: String!
+  resetToken: String
+}
+
+type PasswordResetMetadata {
+  token: String!
+}
+
+"""The result of the :password_reset mutation"""
+type PasswordResetResult {
+  """Any errors generated, if the mutation failed"""
+  errors: [MutationError]
+
+  """Metadata produced by the mutation"""
+  metadata: PasswordResetMetadata
+
+  """The successful result of the mutation"""
+  result: User
+}
+
+input RegisterWithPasswordInput {
+  email: String!
+
+  """The proposed password for the user, in plain text."""
+  password: String!
+
+  """The proposed password for the user (again), in plain text."""
+  passwordConfirmation: String!
+}
+
+type RegisterWithPasswordMetadata {
+  """A JWT which the user can use to authenticate to the API."""
+  token: String!
+}
+
+"""The result of the :register_with_password mutation"""
+type RegisterWithPasswordResult {
+  """Any errors generated, if the mutation failed"""
+  errors: [MutationError]
+
+  """Metadata produced by the mutation"""
+  metadata: RegisterWithPasswordMetadata
+
+  """The successful result of the mutation"""
+  result: User
+}
+
 type RootMutationType {
   createCourse(input: CreateCourseInput): CreateCourseResult
   destroyCourse(id: ID): DestroyCourseResult
+
+  """Send a test email to zorn."""
+  emailZorn(message: String!): EmailResult
+  passwordReset(id: ID, input: PasswordResetInput): PasswordResetResult
+
+  """Register a new user with a username and password."""
+  registerWithPassword(input: RegisterWithPasswordInput): RegisterWithPasswordResult
+
+  """Send password reset instructions to a user if they exist."""
+  requestPasswordReset(
+    """The proposed identity to send reset instructions to."""
+    email: String!
+
+    """A filter to limit the results"""
+    filter: UserFilterInput
+  ): User
+
+  """Attempt to sign in using a username and password."""
+  signInWithPassword(
+    """The identity to use for retrieving the user."""
+    email: String!
+
+    """A filter to limit the results"""
+    filter: UserFilterInput
+
+    """The password to check for the matching user."""
+    password: String!
+  ): UserWithMetadata
   updateCourse(id: ID, input: UpdateCourseInput): UpdateCourseResult
 }
 
@@ -105,6 +187,10 @@ type RootQueryType {
     """The id of the record"""
     id: ID!
   ): Course
+  getUser(
+    """The id of the record"""
+    id: ID!
+  ): User
   listCourses(
     """A filter to limit the results"""
     filter: CourseFilterInput
@@ -112,6 +198,13 @@ type RootQueryType {
     """How to sort the records in the response"""
     sort: [CourseSortInput]
   ): [Course!]!
+  listUsers(
+    """A filter to limit the results"""
+    filter: UserFilterInput
+
+    """How to sort the records in the response"""
+    sort: [UserSortInput]
+  ): [User!]!
 }
 
 enum SortOrder {
@@ -134,4 +227,57 @@ type UpdateCourseResult {
 
   """The successful result of the mutation"""
   result: Course
+}
+
+type User {
+  email: String!
+  id: ID!
+}
+
+input UserFilterEmail {
+  eq: String
+  greaterThan: String
+  greaterThanOrEqual: String
+  in: [String!]
+  isNil: Boolean
+  lessThan: String
+  lessThanOrEqual: String
+  notEq: String
+}
+
+input UserFilterId {
+  eq: ID
+  greaterThan: ID
+  greaterThanOrEqual: ID
+  in: [ID!]
+  isNil: Boolean
+  lessThan: ID
+  lessThanOrEqual: ID
+  notEq: ID
+}
+
+input UserFilterInput {
+  and: [UserFilterInput!]
+  email: UserFilterEmail
+  id: UserFilterId
+  not: [UserFilterInput!]
+  or: [UserFilterInput!]
+}
+
+enum UserSortField {
+  EMAIL
+  ID
+}
+
+input UserSortInput {
+  field: UserSortField!
+  order: SortOrder = ASC
+}
+
+type UserWithMetadata {
+  email: String!
+  id: ID!
+
+  """A JWT which the user can use to authenticate to the API."""
+  token: String!
 }
