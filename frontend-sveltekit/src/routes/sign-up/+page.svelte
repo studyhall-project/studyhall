@@ -1,49 +1,36 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { z } from 'zod';
+	import formSchema from './formSchema';
 	import { superForm } from 'sveltekit-superforms/client';
-	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+
 	export let data: PageData;
 
-	// TODO: Move this to a shared location.
-	// TOOD: Make more friendly error messages.
-	//  String must contain at least 8 character(s)
-	// into:
-	//  must contain at least 8 characters
-
-	// TODO: Make an issue to figure out how we can automate this and store the source of truth in Elixir.
-	const schema = z.object({
-		email: z.string().email(),
-		password: z.string().min(8),
-		passwordConfirmation: z.string().min(8)
-	});
-
 	const { form, message, errors, constraints, enhance } = superForm(data.form, {
-		validators: schema
+		validators: formSchema
 	});
 </script>
 
-<!-- TODO: Make this more responsive. Main box should expand to fill page but maintain it's background color (loose the boarder) -->
-<!-- TODO: Maybe make components for centered focus area that holds the sign up form and tittle/subtitle, if we are going to repeat this -->
 <div class="container mx-auto p-8 space-y-8">
 	<div class="grid grid-cols-6 gap-6">
 		<div class="col-start-2 col-span-4">
 			<div class="mb-8">
 				<h1 class="h1">Sign Up</h1>
 
-				<p class="mt-4">Create an account to get started with StudyHall.</p>
+				<p class="my-4">Create an account to get started with StudyHall.</p>
+
+				{#if $message}
+					<aside class="alert variant-soft-warning">
+						<div class="alert-message">
+							<p>{$message}</p>
+						</div>
+					</aside>
+				{/if}
 			</div>
-
-			<!-- <SuperDebug data={$form} /> -->
-
-			{#if $message}
-				<div class="message">{$message}</div>
-			{/if}
 
 			<form method="POST" use:enhance>
 				<div class="mb-4">
-					<label class="label font-bold">
-						<span>Email</span>
+					<label class="label">
+						<span class="font-bold">Email</span>
 						<input
 							class={$errors.email ? 'input input-error' : 'input'}
 							title="Email"
@@ -57,10 +44,10 @@
 				</div>
 
 				<div class="mb-4">
-					<label class="label font-bold">
-						<span>Password</span>
+					<label class="label">
+						<span class="font-bold">Password</span>
 						<input
-							class="input"
+							class={$errors.password ? 'input input-error' : 'input'}
 							title="Password"
 							type="password"
 							name="password"
@@ -72,10 +59,10 @@
 				</div>
 
 				<div class="mb-4">
-					<label class="label font-bold">
-						<span>Password Confirmation</span>
+					<label class="label">
+						<span class="font-bold">Password Confirmation</span>
 						<input
-							class="input"
+							class={$errors.passwordConfirmation ? 'input input-error' : 'input'}
 							title="Password Confirmation"
 							type="password"
 							name="passwordConfirmation"
