@@ -33,7 +33,7 @@ defmodule StudyHall.MixProject do
   defp deps do
     [
       {:ash_authentication, "~> 3.11"},
-      {:ash_graphql, "~> 0.26.0"},
+      {:ash_graphql, "~> 0.28.1"},
       {:ash_phoenix, "~> 1.2"},
       {:ash_postgres, "~> 1.3"},
       {:ash, "~> 2.14"},
