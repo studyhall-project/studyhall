@@ -1,6 +1,6 @@
 # StudyHall
 
-April 2, 2024: This project is officially on hiatus. Since starting it, I ended up getting a full-time job and don't have the free time I once had. I am still interested in some open-source projects, but this scope is too big for the time available. I'll revisit this in the future, but for now, I will be turning on the Render deployment. 
+April 2, 2024: This project is officially on hiatus. Since starting it, I ended up getting a full-time job and don't have the free time I once had. I am still interested in some open-source projects, but this scope is too big for the time available. I'll revisit this in the future, but for now, I will be turning off the Render deployment. 
 
 ## About
 
